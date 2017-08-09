@@ -5,17 +5,31 @@ class Pet extends React.Component {
     super(props);
   }
 
-  render() {
-    let button = null
+  adoptPet = (event) => {
+    this.props.onAdoptPet(this.props.pet.id)
+  }
+
+  correctButton(){
     if (!this.props.isAdopted){
-      button = <button className="ui primary button" onClick={this.props.onAdoptPet}>Adopt pet</button>
+      return <button className="ui primary button" onClick={this.adoptPet}>Adopt pet</button>
     } else {
-      button = <button className="ui disabled button">Already adopted</button>
+      return <button className="ui disabled button">Already adopted</button>
     }
+  }
+
+  genderIcon(){
+    if (this.props.pet.gender==="male")
+     return "♂"
+     else {
+       return "♀"
+     }
+  }
+
+  render() {
     return (
       <div className="card">
         <div className="content">
-          <a className="header">Pet name {this.props.pet.name} (gender: ♂ or ♀)</a>
+          <a className="header">Pet name {this.props.pet.name} (gender: {this.genderIcon()})</a>
           <div className="meta">
             <span className="date">Pet type {this.props.pet.type}</span>
           </div>
@@ -25,7 +39,7 @@ class Pet extends React.Component {
           </div>
         </div>
         <div className="extra content">
-          {button}
+          {this.correctButton()}
         </div>
       </div>
     );

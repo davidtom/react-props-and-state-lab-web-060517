@@ -5,7 +5,10 @@ class Filters extends React.Component {
     super();
   }
 
-
+  changeType = (event) => {
+    let filter = event.target.value
+    this.props.onChangeType(filter)
+  }
 
   render() {
     return (
@@ -15,7 +18,9 @@ class Filters extends React.Component {
           <select
             name="type"
             id="type"
-            value = {this.props.filters.type}>
+            value = {this.props.filters.type}
+            onChange={this.changeType}
+            >
             <option value="all">All</option>
             <option value="cat">Cats</option>
             <option value="dog">Dogs</option>
@@ -24,7 +29,11 @@ class Filters extends React.Component {
         </div>
 
         <div className="field">
-          <button className="ui secondary button">Find pets</button>
+          <button
+            className="ui secondary button"
+            onClick={this.props.onFindPetsClick}
+            >
+            Find pets</button>
         </div>
       </div>
     );
